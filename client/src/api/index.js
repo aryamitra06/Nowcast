@@ -11,9 +11,9 @@ API.interceptors.request.use((req)=> {
 
 export const fetchPosts = () => API.get(`/posts`);
 export const createPost = (newPost) => API.post(`/add`, newPost);
-export const getPostById = (id) => API.get(`/update/${id}`, id);
+export const getPostById = (id) => API.get(`/post/${id}`, id);
 export const updatePost = (id, updatePost) => API.patch(`/update/${id}`, updatePost);
 export const deletePost = (id) =>API.delete(`/delete/${id}`);
 export const likePost = (id) => API.patch(`/like/${id}`);
 export const signIn = (authData) => API.post(`/signin`, authData); 
-export const signUp = (authData) => API.post(`/signup`, authData); 
+export const signUp = (authData) => API.post(`/signup`, authData);

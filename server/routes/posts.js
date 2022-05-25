@@ -10,5 +10,6 @@ router.get('/update/:id', getPostById)
 router.patch('/update/:id', auth, updatePost)
 router.delete('/delete/:id', auth, deletePost)
 router.patch('/like/:id', auth, likePost)
+router.get('/post/:id', getPostById)
 
 export default router;

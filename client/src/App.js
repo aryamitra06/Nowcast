@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
+import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
     return (
@@ -18,7 +19,8 @@ const App = () => {
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/auth" element={<Auth />} />
+                        <Route path="/auth" element={<Auth />}/>
+                        <Route path="/post/:id" element={<PostDetails/>}/>
                     </Routes>
                 </Container>
             </BrowserRouter>
