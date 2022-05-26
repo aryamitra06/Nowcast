@@ -29,7 +29,7 @@ function Delete(props) {
                     <Button onClick={props.handleCloseDeleteModal} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={ ()=> {props.handleCloseDeleteModal(); handleDelete();}} color='secondary'>
+                    <Button onClick={ ()=> {props.handleCloseDeleteModal(); handleDelete();}} color='error'>
                         Delete
                     </Button>
                 </DialogActions>

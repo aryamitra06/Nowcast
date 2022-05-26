@@ -6,8 +6,6 @@ import { LinearProgress, Grid } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { fetchPosts } from '../../actions/posts';
 function Posts() {
-  const [toggle, setToggle] = React.useState([]);
-
 
   const dispatch = useDispatch();
 
@@ -15,8 +13,7 @@ function Posts() {
 
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [toggle, dispatch, state])
-
+  }, [dispatch, state])
 
 
   const posts = useSelector((state) => state.posts);
@@ -28,7 +25,7 @@ function Posts() {
           {
             posts.map((post) => (
               <Grid key={post._id} item xs={12} sm={6}>
-                <Post post={post} setToggle={setToggle} />
+                <Post post={post}/>
               </Grid>
             ))
           }

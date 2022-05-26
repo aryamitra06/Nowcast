@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import postsRoutes from './routes/posts.js'
 import userRoutes from './routes/users.js'
+import commentRoutes from './routes/comments.js'
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/', postsRoutes);
 app.use('/', userRoutes);
+app.use('/', commentRoutes);
 
 const REMOTE_DB_URI = 'mongodb+srv://arya123:arya123@nowcast.vnepaoc.mongodb.net/nowcast?retryWrites=true&w=majority';
 

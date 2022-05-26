@@ -14,6 +14,12 @@ export const createPost = (newPost) => API.post(`/add`, newPost);
 export const getPostById = (id) => API.get(`/post/${id}`, id);
 export const updatePost = (id, updatePost) => API.patch(`/update/${id}`, updatePost);
 export const deletePost = (id) =>API.delete(`/delete/${id}`);
+
 export const likePost = (id) => API.patch(`/like/${id}`);
+
 export const signIn = (authData) => API.post(`/signin`, authData); 
 export const signUp = (authData) => API.post(`/signup`, authData);
+
+export const addComment = (newComment) => API.post(`/comment/add`, newComment)
+export const deleteComment = (id) => API.delete(`/comment/delete/${id}`)
+export const getComments = (id) => API.get(`/comments/${id}`, id);

@@ -37,9 +37,14 @@ export const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, message, creator, selectedFile, tags } = req.body;
     try {
-        const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-        await Post.findByIdAndUpdate(id, updatedPost, { new: true });
-        res.json(updatedPost);
+        if(creator===req.userId){
+            const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+            await Post.findByIdAndUpdate(id, updatedPost, { new: true });
+            res.json(updatedPost);
+        }
+        else{
+            res.status(405).json({msg: 'not allowed'})
+        }
     } catch (error) {
         res.status(404).json({ msg: error.message })
     }
@@ -48,9 +53,15 @@ export const updatePost = async (req, res) => {
 //deleting a post
 export const deletePost = async (req, res) => {
     const { id } = req.params;
+    const data = await Post.findById(id);
     try {
-        await Post.findByIdAndRemove(id);
-        res.json({ msg: 'deleted successfully' })
+        if(data.creator===req.userId){
+            await Post.findByIdAndRemove(id);
+            res.json({ msg: 'deleted successfully' })
+        }
+        else{
+            res.status(405).json({msg: 'not allowed'})
+        }
     } catch (error) {
         res.status(404).json({ msg: error.message })
     }
@@ -73,7 +84,7 @@ export const likePost = async (req, res) => {
         } else {
             post.likes = post.likes.filter((id) => id !== String(req.userId));
         }
-
+        
         const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
         res.status(200).json(updatedPost);
         

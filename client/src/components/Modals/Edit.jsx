@@ -20,7 +20,7 @@ function Edit(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(updatePost(props.postid, {...postData, name: user?.result?.name}))
-        dispatch(updateState(prev => !prev))
+        await dispatch(updateState(prev => !prev))
       }
 
       const onValueChange = (e) =>{
