@@ -85,43 +85,43 @@ function Post({ post }) {
 
   return (
     <>
-        <Card>
+      <Card>
+        <>
+          <CardHeader
+            action={
               <>
-                <CardHeader
-                  action={
-                    <>
-                    {
-                      (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-                      <IconButton onClick={handleOpenMenu}>
-                        <MoreVertIcon />
-                      </IconButton>
-                      )
-                    }
-                      <Menu
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleCloseMenu}
-                      >
-                        <MenuItem onClick={handleClickOpenEditModal}>Edit</MenuItem>
-                        <MenuItem onClick={handleClickOpenDeleteModal}>Delete</MenuItem>
-                      </Menu>
-                    </>
-                  }
-                  title={post?.name}
-                  subheader={moment(post?.createdAt).fromNow()}
-                />
+                {
+                  (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+                    <IconButton onClick={handleOpenMenu}>
+                      <MoreVertIcon />
+                    </IconButton>
+                  )
+                }
+                <Menu
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                >
+                  <MenuItem onClick={handleClickOpenEditModal}>Edit</MenuItem>
+                  <MenuItem onClick={handleClickOpenDeleteModal}>Delete</MenuItem>
+                </Menu>
               </>
-          <CardActionArea onClick={openPost}>
-            <CardMedia image={post?.selectedFile} style={{ height: '180px' }} />
-            <CardContent>
-                {post?.tags.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
-              <Typography variant="h6" component="h2">
-                {post?.title}
-              </Typography>
-              <Typography variant="body2" color="textPrimary" component="p">
-                {post?.message.toString().substring(0,100)} {post?.message.length>100 && <Typography variant="body2" color="textPrimary" component="p">...Read More</Typography>}
-              </Typography>
+            }
+            title={post?.name}
+            subheader={moment(post?.createdAt).fromNow()}
+          />
+        </>
+        <CardActionArea onClick={openPost}>
+          <CardMedia image={post?.selectedFile} style={{ height: '180px' }} />
+          <CardContent>
+            {post?.tags.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
+            <Typography variant="body1" component="h2">
+              {post?.title.toString().substring(0, 40)} {post?.title.length > 40 && <Typography variant="body2" color="textPrimary" component="p">...</Typography>}
+            </Typography>
+            <Typography variant="body2" color='GrayText' component="p">
+              {post?.message.toString().substring(0, 100)} {post?.message.length > 100 && <Typography variant="body2" color='GrayText' component="p">...Read More</Typography>}
+            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>

@@ -26,22 +26,22 @@ function PostDetails() {
       ) : (
         <>
       <Grow in>
-      <Paper elevation={3} sx={{ width: '100%', mt: 4}}>
-        <Grid container maxWidth="lg" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '500px'}}>
-          <Grid item xs={11} sm={6} sx={{ display:'flex' ,alignItems: 'center', justifyContent: 'center'}}>
-            <img src={data.selectedFile} style={{width: '100%', height: '500px', borderRadius: '4px 0px 0px 4px' }} />
+      <Paper elevation={3} sx={{ width: '100%', mt: 2}}>
+        <Grid container maxWidth="lg" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2}}>
+          <Grid item xs={12} md={12} sm={12} xl={6} display='flex' justifyContent='center' alignItems='center'>
+            <img src={data.selectedFile} height="100%" width="100%" style={{borderRadius: '13px'}}/>
           </Grid>
-          <Grid item xs={11} sm={5}>
-            <Typography variant='h4' sx={{mb:1, width: '95%'}}>{data?.title}</Typography>
+          <Grid item xs={12} md={12} sm={12} xl={5}>
+            <Typography variant='h6' sx={{mb:1}}>{data?.title}</Typography>
             <div>
             {data.tags?.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
             </div>
             <Divider sx={{mt:2, mb:2}}/>
             <Typography variant='subtitle1'>Created by: {data?.name}</Typography>
-            <Typography variant='subtitle2'>Posted: {moment(data.createdAt).fromNow()}</Typography>
-            <Typography variant='subtitle2'>{moment(data.createdAt).format('MMMM Do YYYY, hh:mm a')}</Typography>
+            <Typography variant='subtitle2' color='GrayText'>Posted: {moment(data.createdAt).fromNow()}</Typography>
+            <Typography variant='subtitle2' color='GrayText'>{moment(data.createdAt).format('MMMM Do YYYY, hh:mm a')}</Typography>
             <Divider sx={{mt:2, mb:2}}/>
-            <Typography variant='subtitle1' sx={{width: '95%'}} >{data?.message}</Typography>
+            <Typography variant='subtitle2' >{data?.message}</Typography>
           </Grid>
         </Grid>
       </Paper>

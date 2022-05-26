@@ -37,7 +37,7 @@ function Edit(props) {
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                             <form autoComplete="off" onSubmit={handleSubmit}>
-                                <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
+                                <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px', marginTop: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
                                 <TextField name='message' label="Message" variant="outlined" fullWidth value={postData?.message} multiline={true} rows={3} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
                                 <TextField name='tags' label="Tags" variant="outlined" fullWidth value={postData?.tags} style={{ marginBottom: '9px' }} onChange={(e)=> setPostData({...postData, tags: e.target.value.split(',')})} required focused/>
                                 <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}/>

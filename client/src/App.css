@@ -1,5 +1,5 @@
 @media only screen and (max-width: 600px) {
     .containermain{
-        flex-direction: column-reverse;
+        flex-direction: column-reverse !important;
     }
 }

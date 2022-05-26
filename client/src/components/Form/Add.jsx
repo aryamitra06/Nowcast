@@ -10,12 +10,16 @@ function Form() {
 
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(createPost({ ...postData, name: user?.result?.name }))
     setPostData({ title: '', message: '', tags: '', selectedFile: '' })
     dispatch(updateState(prev => !prev))
   }
+
+
   if (!user?.result?.name) {
     return (
       <>
@@ -27,6 +31,9 @@ function Form() {
       </>
     )
   }
+
+
+    
   return (
     <>
       <Card sx={{ mt: 2 }}>
