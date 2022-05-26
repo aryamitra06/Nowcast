@@ -24,7 +24,7 @@ function Posts() {
         <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0 }}>
           {
             posts.map((post) => (
-              <Grid key={post._id} item xs={12} sm={6}>
+              <Grid key={post._id} item xs={12} sm={12}>
                 <Post post={post}/>
               </Grid>
             ))

@@ -4,6 +4,7 @@ import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/post';
 import { updateState } from '../../actions/updatestate'
+import toast, { Toaster } from 'react-hot-toast';
 
 function Form() {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -15,6 +16,9 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(createPost({ ...postData, name: user?.result?.name }))
+    toast.success('Yay! Your story posted', {
+      icon: '🎉',
+    });
     await dispatch(updateState(prev => !prev))
     setPostData({ title: '', message: '', tags: '', selectedFile: '' })
   }
@@ -33,7 +37,7 @@ function Form() {
   }
 
 
-    
+
   return (
     <>
       <Card sx={{ mt: 2 }}>
@@ -48,6 +52,18 @@ function Form() {
           </form>
         </CardContent>
       </Card>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: 'white',
+            color: 'green',
+            fontFamily: 'sans-serif'
+          }
+        }}
+      />
     </>
   )
 }
