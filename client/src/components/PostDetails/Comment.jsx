@@ -22,7 +22,7 @@ function Comment({ comment }) {
 
   return (
     <>
-      <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
+      <Paper elevation={2} sx={{ p: 2, m: 2 }} style={{minWidth: '400px'}}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant='body1'>{comment?.name}</Typography>
           {

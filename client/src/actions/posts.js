@@ -9,3 +9,22 @@ export const fetchPosts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const recommendPosts = (searchQuery) => async (dispatch) => {
+  try {
+    const { data: { data } } = await api.recommendPosts(searchQuery);
+    dispatch({ type: 'RECOMMEND_POSTS', payload: { data } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const searchPost = (query) => async (dispatch) => {
+  try {
+    const {data} = await api.searchPost(query);
+    console.log(data);
+    dispatch({ type: 'SEARCH_POST', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};

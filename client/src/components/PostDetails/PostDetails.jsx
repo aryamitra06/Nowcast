@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { getPostById } from '../../actions/post'
 import CommentSection from './CommentSection';
+import PostRecommendation from './PostRecommendation';
 
 
 function PostDetails() {
@@ -16,7 +17,6 @@ function PostDetails() {
   }, [dispatch, id])
 
   const data = useSelector((state) => state.post);
-  console.log(data);
   return (
     <>
       {
@@ -48,6 +48,7 @@ function PostDetails() {
               </Paper>
             </Grow>
               <CommentSection post = {data} />
+              <PostRecommendation post = {data}/>
           </>
         )
       }

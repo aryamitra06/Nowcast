@@ -23,3 +23,7 @@ export const signUp = (authData) => API.post(`/signup`, authData);
 export const addComment = (newComment) => API.post(`/comment/add`, newComment)
 export const deleteComment = (id) => API.delete(`/comment/delete/${id}`)
 export const getComments = (id) => API.get(`/comments/${id}`, id);
+
+export const recommendPosts = (searchQuery) => API.get(`/recommend?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+
+export const searchPost = (query) => API.get(`/search?query=${query}`);

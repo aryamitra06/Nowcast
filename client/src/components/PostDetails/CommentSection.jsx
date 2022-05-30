@@ -32,7 +32,7 @@ function CommentSection({ post }) {
     <>
       <Grow in>
         <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 3 }} >
-          <Grid item xs={12} md={6} sm={12} xl={5} sx={{ alignSelf: 'flex-start', mb: 2 }}>
+          <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start', mb: 2 }}>
             <Typography variant='h6' sx={{ mb: 2 }}>Write a Comment</Typography>
             <form onSubmit={handleSubmit}>
               <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
@@ -41,9 +41,9 @@ function CommentSection({ post }) {
               </div>
             </form>
           </Grid>
-          <Grid item xs={12} md={5} sm={12} xl={6} sx={{ alignSelf: 'flex-start' }}>
+          <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start' }}>
             <Typography variant='h6' sx={{ mb: 2 }}>Comments</Typography>
-            <div style={{ height: '350px', overflowY: 'scroll', padding: '5px' }}>
+            <div style={{ overflowX: 'scroll', padding: '5px', display: 'flex' }}>
               {
                 comments.map((comment) => (
                   <Comment comment={comment} />
