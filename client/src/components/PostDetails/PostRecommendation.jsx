@@ -2,14 +2,13 @@ import { Typography, LinearProgress, Grid, Paper, Divider } from '@mui/material'
 import React from 'react'
 import { recommendPosts } from '../../actions/posts'
 import { useDispatch, useSelector } from 'react-redux'
-import {useNavigate, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 function PostRecommendation({ post }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const data = useSelector((state) => state.posts);
   React.useEffect(() => {
-    dispatch(recommendPosts({ search: 'none', tags: post?.tags.join(',') }));
+    dispatch(recommendPosts({ search: 'none', tags: post?.tags?.join(',') }));
   }, [post])
 
   const recommendedPosts = data.posts?.filter(({ _id }) => _id !== post._id);

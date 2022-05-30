@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, Menu, MenuItem, Box, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import {updateState} from '../../actions/updatestate';
 import decode from 'jwt-decode';
 
 function Navbar() {
   const [query, setQuery] = React.useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -38,6 +39,7 @@ function Navbar() {
   const handleSubmit = async (e)=> {
     e.preventDefault()
     navigate(`/search?query=${query.query}`)
+    await dispatch(updateState(prev => !prev))
   }
 
   const handleOnChange = (e) => {
@@ -52,7 +54,6 @@ function Navbar() {
           </Typography>
           <form onSubmit={handleSubmit}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <SearchIcon sx={{ color: 'action.active', mr: 1 }} />
             <TextField label="Hit Enter to search..." name="query" onChange={handleOnChange} variant="outlined" size='small'/>
           </Box>
           </form>

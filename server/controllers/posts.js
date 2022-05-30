@@ -112,8 +112,9 @@ export const recommendPosts = async (req, res) => {
 export const searchPost = async (req, res) => {
     const { query } = req.query;
     try {
-        const title = new RegExp(query, "i");
-        const posts = await Post.find({ title });
+        const q = new RegExp(query, "i");
+        const posts = await Post.find({ $or: [ { title: q }, { tags: q }, {message: q} ] });
+        
         res.json(posts);
     } catch (error) {
         res.status(404).json({ message: error.message });

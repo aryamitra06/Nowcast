@@ -15,8 +15,8 @@ const App = () => {
     return (
         <>
             <BrowserRouter>
-                <Container maxWidth="lg">
                     <Navbar />
+                <Container maxWidth="lg">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/auth" element={<Auth />}/>

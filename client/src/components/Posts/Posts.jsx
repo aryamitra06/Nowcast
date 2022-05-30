@@ -20,10 +20,13 @@ function Posts() {
     if (search === null) {
       dispatch(fetchPosts());
     }
+    if (search === "") {
+      dispatch(fetchPosts());
+    }
     if (search) {
       dispatch(searchPost(search))
     }
-  }, [dispatch, state, search])
+  }, [dispatch, state])
 
 
   const posts = useSelector((state) => state.posts);

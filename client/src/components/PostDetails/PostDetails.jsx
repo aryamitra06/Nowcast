@@ -7,16 +7,19 @@ import { getPostById } from '../../actions/post'
 import CommentSection from './CommentSection';
 import PostRecommendation from './PostRecommendation';
 
-
 function PostDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  // const user = JSON.parse(localStorage.getItem('profile'));
+  // const userId = user?.result?.googleId || user?.result?._id;
+
 
   React.useEffect(() => {
     dispatch(getPostById(id))
   }, [dispatch, id])
 
   const data = useSelector((state) => state.post);
+
   return (
     <>
       {
@@ -47,8 +50,8 @@ function PostDetails() {
                 </Grid>
               </Paper>
             </Grow>
-              <CommentSection post = {data} />
-              <PostRecommendation post = {data}/>
+            <CommentSection post={data} />
+            <PostRecommendation post={data} />
           </>
         )
       }
