@@ -48,7 +48,7 @@ function CommentSection({ post }) {
             }
           </Grid>
           <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start' }}>
-            <Typography variant='h6' sx={{ mb: 2 }}>Comments</Typography>
+            <Typography variant='h6' sx={{ mb: 2 }}>Comments ({comments?.length})</Typography>
             <div style={{ overflowX: 'scroll', padding: '5px', display: 'flex' }}>
               {
                 comments.map((comment) => (
