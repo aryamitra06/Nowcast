@@ -19,7 +19,7 @@ function PostRecommendation({ post }) {
       {
         !data.posts?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
           <>
-            <Grid container display="flex" alignItems="center" justifyContent='center' spacing={2} sx={{ mt: 0 }}>
+            <Grid container display="flex" alignItems="center" justifyContent='flex-start' spacing={2} sx={{ mt: 0 }}>
               {
                 recommendedPosts.map((post) => (
                   <Grid item xs={12} md={4} sm={4} xl={4}>
