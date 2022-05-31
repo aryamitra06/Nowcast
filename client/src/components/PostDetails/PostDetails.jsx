@@ -6,9 +6,11 @@ import moment from 'moment';
 import { getPostById } from '../../actions/post'
 import CommentSection from './CommentSection';
 import PostRecommendation from './PostRecommendation';
+import Likepost from './Likepost';
 
 function PostDetails() {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.updatestate);
   const { id } = useParams();
   // const user = JSON.parse(localStorage.getItem('profile'));
   // const userId = user?.result?.googleId || user?.result?._id;
@@ -16,7 +18,7 @@ function PostDetails() {
 
   React.useEffect(() => {
     dispatch(getPostById(id))
-  }, [dispatch, id])
+  }, [dispatch, id, state])
 
   const data = useSelector((state) => state.post);
 
@@ -50,6 +52,7 @@ function PostDetails() {
                 </Grid>
               </Paper>
             </Grow>
+            <Likepost post={data}/>
             <CommentSection post={data} />
             <PostRecommendation post={data} />
           </>

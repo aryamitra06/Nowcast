@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dialog, DialogTitle, DialogContent, DialogContentText, Button, TextField } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, Button, TextField } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { useSelector } from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -36,10 +36,11 @@ function Edit(props) {
                 <DialogTitle>Edit Post</DialogTitle>
                 <DialogContent>
                             <form autoComplete="off" onSubmit={handleSubmit}>
-                                <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px', marginTop: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
-                                <TextField name='message' label="Message" variant="outlined" fullWidth value={postData?.message} multiline={true} rows={3} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
-                                <TextField name='tags' label="Tags" variant="outlined" fullWidth value={postData?.tags} style={{ marginBottom: '9px' }} onChange={(e)=> setPostData({...postData, tags: e.target.value.split(',')})} required focused/>
+                                <img src={postData?.selectedFile} alt="post cover" style={{width: '100%', height: '200px', objectFit: 'cover',marginBottom: '10px', borderRadius: '10px'}}></img>
                                 <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}/>
+                                <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px', marginTop: '19px' }} onChange={(e) => onValueChange(e)} required focused/>
+                                <TextField name='message' label="Message" variant="outlined" fullWidth value={postData?.message} multiline={true} rows={3} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused/>
+                                <TextField name='tags' label="Tags (comma separated)" variant="outlined" fullWidth value={postData?.tags} style={{ marginBottom: '9px' }} onChange={(e)=> setPostData({...postData, tags: e.target.value.split(',')})} required focused/>
                                 <Button variant="contained" type="submit" onClick={props.handleCloseEditModal} color="primary" fullWidth style={{ marginTop: "15px" }}>Submit</Button>
                             </form>
                 </DialogContent>

@@ -49,9 +49,9 @@ function Navbar() {
     <>
       <AppBar position="static" color='transparent' style={{ borderRadius: '10px' }}>
         <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant="h6" color="inherit" component={Link} to="/" sx={{ textDecoration: 'none' }}>
+          <a style={{textDecoration: 'none', color: 'inherit'}} href='/'><Typography variant="h6" color="inherit" sx={{ textDecoration: 'none' }}>
             Nowcast
-          </Typography>
+          </Typography></a>
           <form onSubmit={handleSubmit}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <TextField label="Hit Enter to search..." name="query" onChange={handleOnChange} variant="outlined" size='small'/>

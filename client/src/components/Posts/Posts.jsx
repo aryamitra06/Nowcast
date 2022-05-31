@@ -32,7 +32,7 @@ function Posts() {
   const posts = useSelector((state) => state.posts);
 
   return (
-    !posts.length ? <LinearProgress sx={{ mt: 2 }} /> : (
+    !posts?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
       <>
         <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0 }}>
           {
