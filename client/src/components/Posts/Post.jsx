@@ -113,7 +113,11 @@ function Post({ post }) {
           />
         </>
         <CardActionArea onClick={openPost}>
-          <CardMedia image={post?.selectedFile} style={{ height: '180px' }} />
+          {
+            post?.selectedFile && (
+              <CardMedia image={post?.selectedFile} style={{ height: '180px' }} />
+            )
+          }
           <CardContent>
             {post?.tags.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
             <Typography variant="body1" component="h2">

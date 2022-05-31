@@ -23,13 +23,7 @@ function PostDetails() {
   const data = useSelector((state) => state.post);
 
   return (
-    <>
-      {
-        (data.length === 0) ? (
-          <>
-            <LinearProgress sx={{ mt: 2 }} />
-          </>
-        ) : (
+        !data.selectedFile?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
           <>
             <Grow in>
               <Paper elevation={3} sx={{ width: '100%', mt: 2 }}>
@@ -57,8 +51,6 @@ function PostDetails() {
             <PostRecommendation post={data} />
           </>
         )
-      }
-    </>
   )
 }
 

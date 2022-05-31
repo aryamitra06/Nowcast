@@ -34,7 +34,7 @@ function Posts() {
   return (
     !posts?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
       <>
-        <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0 }}>
+        <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0, mb:2 }}>
           {
             posts.map((post) => (
               <Grid item xs={12} sm={12}>

@@ -36,7 +36,11 @@ function Edit(props) {
                 <DialogTitle>Edit Post</DialogTitle>
                 <DialogContent>
                             <form autoComplete="off" onSubmit={handleSubmit}>
-                                <img src={postData?.selectedFile} alt="post cover" style={{width: '100%', height: '200px', objectFit: 'cover',marginBottom: '10px', borderRadius: '10px'}}></img>
+                                {
+                                    postData?.selectedFile && (
+                                        <img src={postData?.selectedFile} alt="post cover" style={{width: '100%', height: '200px', objectFit: 'cover',marginBottom: '10px', borderRadius: '10px'}}></img>
+                                    )
+                                }
                                 <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}/>
                                 <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px', marginTop: '19px' }} onChange={(e) => onValueChange(e)} required focused/>
                                 <TextField name='message' label="Message" variant="outlined" fullWidth value={postData?.message} multiline={true} rows={3} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused/>

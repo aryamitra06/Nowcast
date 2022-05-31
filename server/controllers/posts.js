@@ -85,8 +85,8 @@ export const likePost = async (req, res) => {
             post.likes = post.likes.filter((id) => id !== String(req.userId));
         }
 
-        const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
-        res.status(200).json(updatedPost);
+        await Post.findByIdAndUpdate(id, post, { new: true });
+        res.status(200).json({msg: 'success'});
 
     } catch (error) {
         res.status(404).json({ msg: error.message })
