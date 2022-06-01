@@ -13,6 +13,8 @@ import PostDetails from './components/PostDetails/PostDetails';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import MyProfile from './components/Profile/MyProfile';
+import UserProfile from './components/Profile/UserProfile';
 
 
 
@@ -41,6 +43,8 @@ const App = () => {
                             <Route path="/auth" element={<Auth />} />
                             <Route path="/post/:id" element={<PostDetails />} />
                             <Route path="/search" element={<Home />} />
+                            <Route path="/myprofile" element={<MyProfile />} />
+                            <Route path="/profile/:userId" element={<UserProfile />} />
                         </Routes>
                     </Container>
                 </ThemeProvider>

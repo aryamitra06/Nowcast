@@ -21,10 +21,27 @@ export const recommendPosts = (searchQuery) => async (dispatch) => {
 
 export const searchPost = (query) => async (dispatch) => {
   try {
-    const {data} = await api.searchPost(query);
-    console.log(data);
+    const { data } = await api.searchPost(query);
     dispatch({ type: 'SEARCH_POST', payload: data });
   } catch (error) {
     console.log(error);
   }
 };
+
+export const myProfilePosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.myProfilePosts();
+    dispatch({ type: 'MY_POSTS', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const userProfilePosts = (userId) => async (dispatch) => {
+  try {
+    const { data } = await api.userProfilePosts(userId);
+    dispatch({ type: 'USER_POSTS', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+}

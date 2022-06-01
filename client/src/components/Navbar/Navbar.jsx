@@ -3,8 +3,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, Menu, MenuItem
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom'
 import { updateState } from '../../actions/updatestate';
 import decode from 'jwt-decode';
 
@@ -78,7 +77,7 @@ function Navbar(props) {
                 user ? (
                   <>
                     <IconButton onClick={handleClick} sx={{ p: 0 }}>
-                      <Avatar src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+                      <Avatar src={user?.result.imageUrl}>{user?.result.name.charAt(0).toUpperCase()}</Avatar>
                     </IconButton>
                     <Menu
                       anchorEl={anchorEl}
@@ -86,7 +85,7 @@ function Navbar(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>{user?.result.name}</MenuItem>
-                      <MenuItem>My Profile</MenuItem>
+                      <Link to='/myprofile' style={{textDecoration: 'none', color: 'inherit'}}><MenuItem>My Profile</MenuItem></Link>
                       <MenuItem onClick={logout}>Logout</MenuItem>
                     </Menu>
                   </>

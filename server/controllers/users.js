@@ -23,7 +23,7 @@ export const signIn = async (req, res) => {
 }
 
 export const signUp = async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName, imageUrl } = req.body;
 
     try {
         //@case 1:
@@ -32,7 +32,7 @@ export const signUp = async (req, res) => {
 
         //@case 2: (Success)
         const hashedPassword = await bcrypt.hash(password, 12);
-        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
+        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`, imageUrl });
         const token = jwt.sign({ email: result.email, id: result._id }, "aryaop", { expiresIn: "1h" });
         res.status(201).json({ result, token });
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Paper, LinearProgress, Divider, Grid, Chip, Grow } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
 import { getPostById } from '../../actions/post'
 import CommentSection from './CommentSection';
@@ -26,7 +26,7 @@ function PostDetails() {
         !data.selectedFile?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
           <>
             <Grow in>
-              <Paper elevation={3} sx={{ width: '100%', mt: 2 }}>
+              <Paper elevation={3} sx={{ width: '100%', mt: 2}}>
                 <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2 }}>
                   <Grid item xs={12} md={12} sm={12} xl={6} display='flex' justifyContent='center' alignItems='center'>
                     <img src={data.selectedFile} alt="selected file" height="100%" width="100%" style={{ borderRadius: '13px' }} />
@@ -37,7 +37,7 @@ function PostDetails() {
                       {data.tags?.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
                     </div>
                     <Divider sx={{ mt: 2, mb: 2 }} />
-                    <Typography variant='subtitle1'>Created by: {data?.name}</Typography>
+                    <Typography variant='subtitle1'>Created by: <Link style={{textDecoration: 'none', color: 'inherit', fontWeight: 'bold'}} to={`/profile/${data?.creator}`}>{data?.name}</Link></Typography>
                     <Typography variant='subtitle2' color='GrayText'>Posted: {moment(data.createdAt).fromNow()}</Typography>
                     <Typography variant='subtitle2' color='GrayText'>{moment(data.createdAt).format('MMMM Do YYYY, hh:mm a')}</Typography>
                     <Divider sx={{ mt: 2, mb: 2 }} />
