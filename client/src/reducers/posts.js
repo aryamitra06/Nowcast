@@ -6,8 +6,6 @@ const posts = (posts = [], action) => {
             return { ...posts, posts: action.payload.data };
         case 'SEARCH_POST':
             return action.payload;
-        case 'MY_POSTS':
-            return { posts: action.payload };
         case 'USER_POSTS':
             return { posts: action.payload };
         default:

@@ -1,22 +1,16 @@
 import React from 'react'
 import { Grid, Paper, Typography, Divider, Avatar, LinearProgress, Alert } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
-import { userProfilePosts } from '../../actions/posts';
+import { profilePosts } from '../../actions/posts';
 import { Link, useParams } from 'react-router-dom'
 import moment from 'moment';
-
-// const user = JSON.parse(localStorage.getItem('profile'));
-// const userId = user?.result?.googleId || user?.result?._id;
-// const name = user?.result?.name || user?.result?.name;
-// const email = user?.result?.email || user?.result?.email;
-// const imageUrl = user?.result?.imageUrl || user?.result?.imageUrl;
 
 function UserProfile() {
     const dispatch = useDispatch();
     const { userId } = useParams();
 
     React.useEffect(() => {
-        dispatch(userProfilePosts(userId));
+        dispatch(profilePosts(userId));
     }, [dispatch])
 
     const posts = useSelector((state) => state.posts);
@@ -36,7 +30,7 @@ function UserProfile() {
                 <Grid item xs={12} sm={6} md={6} lg={6} mt={3}>
                     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                         <Avatar src={imageUrl} sx={{ height: '150px', width: '150px' }}>{name?.charAt(0).toUpperCase()}</Avatar>
-                        <Typography variant='h6' mt={1}>{name}</Typography>
+                        <Typography variant='h6' mt={1} mb={1}>{name}</Typography>
                         <Alert severity="info">
                         <Typography variant='body1'>Last Post: {moment(lastpost).format('MMMM Do YYYY, hh:mm a')}</Typography>
                         <Typography variant='body1'>Total Posts: {posts?.posts?.length}</Typography>

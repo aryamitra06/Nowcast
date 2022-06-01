@@ -28,18 +28,10 @@ export const searchPost = (query) => async (dispatch) => {
   }
 };
 
-export const myProfilePosts = () => async (dispatch) => {
-  try {
-    const { data } = await api.myProfilePosts();
-    dispatch({ type: 'MY_POSTS', payload: data });
-  } catch (error) {
-    console.log(error);
-  }
-}
 
-export const userProfilePosts = (userId) => async (dispatch) => {
+export const profilePosts = (userId) => async (dispatch) => {
   try {
-    const { data } = await api.userProfilePosts(userId);
+    const { data } = await api.ProfilePosts(userId);
     dispatch({ type: 'USER_POSTS', payload: data });
   } catch (error) {
     console.log(error);

@@ -28,5 +28,4 @@ export const recommendPosts = (searchQuery) => API.get(`/recommend?searchQuery=$
 
 export const searchPost = (query) => API.get(`/search?query=${query}`);
 
-export const myProfilePosts = () => API.get(`/myprofile`);
-export const userProfilePosts = (userId) => API.get(`/profile/${userId}`);
+export const ProfilePosts = (userId) => API.get(`/profile/${userId}`);

@@ -122,25 +122,12 @@ export const searchPost = async (req, res) => {
 }
 
 //my profile posts
-export const myProfilePosts = async (req, res) => {
-    //@case 1: checking authentication
-    if (!req.userId) {
-        return res.json({ message: 'Unauthenticated' });
-    }
-    try {
-        const  posts  = await Post.find({ creator: req.userId})
-        res.status(200).json(posts);
-
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
-export const userProfilePosts = async (req, res) => {
-    const { userId } = req.params;
+export const ProfilePosts = async (req, res) => {
+    const {userId} = req.params;
     try {
         const  posts  = await Post.find({ creator: userId})
         res.status(200).json(posts);
+
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
