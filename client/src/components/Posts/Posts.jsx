@@ -30,15 +30,16 @@ function Posts() {
 
 
   const posts = useSelector((state) => state.posts);
+  const data = posts.data;
 
   return (
-    !posts?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
+    !data?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
       <>
         <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0, mb:2 }}>
           {
-            posts.map((post) => (
+            data.map((d) => (
               <Grid item xs={12} sm={12}>
-                <Post post={post} />
+                <Post post={d} />
               </Grid>
             ))
           }
