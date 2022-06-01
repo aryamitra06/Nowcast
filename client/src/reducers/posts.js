@@ -7,7 +7,7 @@ const posts = (posts = [], action) => {
         case 'SEARCH_POST':
             return action.payload;
         case 'USER_POSTS':
-            return { posts: action.payload };
+            return action.payload;
         default:
             return posts;
     }

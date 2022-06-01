@@ -6,25 +6,26 @@ import { Link, useParams } from 'react-router-dom'
 import moment from 'moment';
 
 function MyProfile() {
-    const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
     const userId = user?.result?.googleId || user?.result?._id;
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(profilePosts(userId));
     }, [dispatch])
 
-    const posts = useSelector((state) => state.posts);
+    const data = useSelector((state) => state.posts);
+    console.log(data);
 
-    const name = posts?.posts?.[0].name;
-    const lastpost = posts?.posts?.[posts?.posts?.length - 1].createdAt;
+    const name = data?.[0]?.name;
+    const lastpost = data?.[data?.length - 1]?.createdAt;
 
     let totallikes = 0;
-    for (let i = 0; i < posts?.posts?.length; i++) {
-        totallikes = (posts?.posts?.[i].likes.length) + totallikes;
+    for (let i = 0; i < data?.length; i++) {
+        totallikes = (data?.[i].likes.length) + totallikes;
     }
 
-    const imageUrl = posts?.posts?.[0].imageUrl;
+    const imageUrl = data?.[0]?.imageUrl;
     return (
         <>
             <Grid container style={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
@@ -34,7 +35,7 @@ function MyProfile() {
                         <Typography variant='h6' mt={1} mb={1}>{name}</Typography>
                         <Alert severity="info">
                             <Typography variant='body1'>Last Post: {moment(lastpost).format('MMMM Do YYYY, hh:mm a')}</Typography>
-                            <Typography variant='body1'>Total Posts: {posts?.posts?.length}</Typography>
+                            <Typography variant='body1'>Total Posts: {data?.length}</Typography>
                             <Typography variant='body1'>Total Likes: {totallikes}</Typography>
                         </Alert>
                     </div>
@@ -42,12 +43,12 @@ function MyProfile() {
                 <Typography variant='h6' mb={1} mt={2} textAlign='center'>All Posts</Typography>
             </Grid>
             {
-                !posts.posts?.length ? <LinearProgress /> : (
+                !data?.length ? <LinearProgress /> : (
 
                     <Grid container style={{ mt: 2 }} spacing={2}>
                         {
-                            posts.posts?.map((post) => (
-                                <Grid key={post._id} item xs={12} sm={6} md={4} lg={4}>
+                            data?.map((post) => (
+                                <Grid key={data._id} item xs={12} sm={6} md={4} lg={4}>
                                     <Link style={{ textDecoration: 'none' }} to={`/post/${post._id}`}>
                                         <Paper sx={{ height: '300px' }}>
                                             <img src={post.selectedFile} height="50%" width="100%" style={{ objectFit: 'cover', borderRadius: "5px 5px 0 0" }}></img>

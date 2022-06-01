@@ -21,9 +21,9 @@ export const addComment = async (req,res) => {
 }
 
 export const deleteComment = async (req,res) => {
-    const { id } = req.params;
+    
     try {
-        let comment = await Comment.findById(id);
+        let comment = await Comment.findById(req.params.id);
         if(req.userId===comment.creator){
             await comment.deleteOne();
             res.status(200).json({ msg: 'deleted successfully' })
