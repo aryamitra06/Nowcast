@@ -8,7 +8,8 @@ import {updateState} from '../../actions/updatestate';
 
 function Edit(props) {
     const dispatch = useDispatch();
-    const data = useSelector((state) => state.post);
+    const post = useSelector((state) => state.post);
+    const data = post.data;
     const [postData, setPostData] = useState({title: '', message: '', tags: '', selectedFile: ''})
     const user=JSON.parse(localStorage.getItem('profile'));
 

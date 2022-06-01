@@ -22,6 +22,7 @@ function CommentSection({ post }) {
 
   const state = useSelector((state) => state.updatestate);
   const comments = useSelector((state) => state.comments);
+  const data = comments.data;
 
   React.useEffect(() => {
     dispatch(fetchComments(post._id));
@@ -48,11 +49,11 @@ function CommentSection({ post }) {
             }
           </Grid>
           <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start' }}>
-            <Typography variant='h6' sx={{ mb: 2 }}>Comments ({comments?.length})</Typography>
+            <Typography variant='h6' sx={{ mb: 2 }}>Comments ({data?.length})</Typography>
             <div style={{ overflowX: 'scroll', padding: '5px', display: 'flex' }}>
               {
-                comments.map((comment) => (
-                  <Comment comment={comment} />
+                data?.map((d) => (
+                  <Comment comment={d} />
                 ))
               }
             </div>

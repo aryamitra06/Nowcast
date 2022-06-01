@@ -6,18 +6,20 @@ import { Link } from 'react-router-dom';
 function PostRecommendation({ post }) {
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.posts);
   React.useEffect(() => {
     dispatch(recommendPosts({ search: 'none', tags: post?.tags?.join(',') }));
   }, [post])
+  
+  const posts = useSelector((state) => state.posts);
+  const data = posts.data;
 
-  const recommendedPosts = data.posts?.filter(({ _id }) => _id !== post._id);
+  const recommendedPosts = data?.filter(({ _id }) => _id !== post._id);
 
   return (
     <>
       <Typography variant='h6' mt={2} >Recommended Posts</Typography>
       {
-        !data.posts?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
+        !data?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
           <>
             <Grid container display="flex" alignItems="center" justifyContent='flex-start' spacing={2} sx={{ mt: 0, mb: 2 }}>
               {

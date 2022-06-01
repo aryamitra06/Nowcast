@@ -77,14 +77,14 @@ function Navbar(props) {
                 user ? (
                   <>
                     <IconButton onClick={handleClick} sx={{ p: 0 }}>
-                      <Avatar src={user?.result.imageUrl}>{user?.result.name.charAt(0).toUpperCase()}</Avatar>
+                      <Avatar src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0).toUpperCase()}</Avatar>
                     </IconButton>
                     <Menu
                       anchorEl={anchorEl}
                       open={open}
                       onClose={handleClose}
                     >
-                      <MenuItem>{user?.result.name}</MenuItem>
+                      <MenuItem>{user?.result?.name}</MenuItem>
                       <Link to='/myprofile' style={{textDecoration: 'none', color: 'inherit'}}><MenuItem>My Profile</MenuItem></Link>
                       <MenuItem onClick={logout}>Logout</MenuItem>
                     </Menu>

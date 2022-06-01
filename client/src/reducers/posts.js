@@ -3,7 +3,7 @@ const posts = (posts = [], action) => {
         case 'FETCH_ALL':
             return action.payload;
         case 'RECOMMEND_POSTS':
-            return { ...posts, posts: action.payload.data };
+            return action.payload;
         case 'SEARCH_POST':
             return action.payload;
         case 'USER_POSTS':

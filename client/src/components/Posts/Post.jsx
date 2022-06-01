@@ -16,7 +16,7 @@ import { updateState } from '../../actions/updatestate';
 function Post({ post }) {
   const navigation = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId = user?.result?.googleId || user?.result?._id;
 
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);

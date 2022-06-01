@@ -2,7 +2,7 @@ import * as api from '../api/index.js';
 
 export const addComment = (post) => async (dispatch) => {
     try {
-      const { data } = await api.addComment(post);
+      const data = await api.addComment(post);
       dispatch({ type: 'ADD_COMMENT', payload: data });
     } catch (error) {
       console.log(error.message);

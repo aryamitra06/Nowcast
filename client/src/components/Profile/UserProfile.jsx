@@ -13,8 +13,8 @@ function UserProfile() {
         dispatch(profilePosts(userId));
     }, [dispatch])
 
-    const data = useSelector((state) => state.posts);
-    console.log(data);
+    const posts = useSelector((state) => state.posts);
+    const data = posts.data;
 
     const name = data?.[0]?.name;
     const lastpost = data?.[data?.length - 1]?.createdAt;

@@ -20,10 +20,11 @@ function PostDetails() {
     dispatch(getPostById(id))
   }, [dispatch, id, state])
 
-  const data = useSelector((state) => state.post);
+  const post = useSelector((state) => state.post);
+  const data = post.data;
 
   return (
-        !data.selectedFile?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
+        !data?.title?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
           <>
             <Grow in>
               <Paper elevation={3} sx={{ width: '100%', mt: 2}}>

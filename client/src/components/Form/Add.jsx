@@ -27,7 +27,6 @@ function Form() {
   if (!user?.result?.name) {
     return (
       <>
-
             <Alert severity="info" sx={{mt:2}}>
               <AlertTitle>🎉 Join Nowcast</AlertTitle>
               <strong>Login/Create your account to start posting!</strong>
@@ -36,8 +35,6 @@ function Form() {
       </>
     )
   }
-
-
 
   return (
     <>

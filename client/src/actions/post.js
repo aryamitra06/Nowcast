@@ -3,7 +3,7 @@ import * as api from '../api/index.js';
 //action creators
 export const createPost = (post) => async (dispatch) => {
   try {
-    const { data } = await api.createPost(post);
+    const data = await api.createPost(post);
     dispatch({ type: 'CREATE', payload: data });
   } catch (error) {
     console.log(error.message);
@@ -12,7 +12,7 @@ export const createPost = (post) => async (dispatch) => {
 
 export const getPostById = (id) => async (dispatch) => {
     try {
-      const { data } = await api.getPostById(id);
+      const data = await api.getPostById(id);
       dispatch({ type: 'GET_POST_BY_ID', payload: data })
     } catch (error) {
       console.log(error.message);
