@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Card, CardContent, Alert, AlertTitle } from '@mui/material';
+import { TextField, Button, Typography, Card, CardContent, Alert, AlertTitle, Paper } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/post';
@@ -20,43 +20,51 @@ function Form() {
       icon: '🎉',
     });
     await dispatch(updateState(prev => !prev))
-    setPostData({ title: '', message: '', tags: '', selectedFile: '' })
+    document.getElementById("form").reset();
+    setPostData({selectedFile: ''});
   }
 
+  const resetForm = () => {
+    setPostData({selectedFile: ''});
+  }
+
+  const handleOnChange = (e) => {
+    setPostData({...postData,[e.target.name]:e.target.value});
+  }
 
   if (!user?.result?.name) {
     return (
       <>
-            <Alert severity="info" sx={{mt:2}}>
-              <AlertTitle>🎉 Join Nowcast</AlertTitle>
-              <strong>Login/Create your account to start posting!</strong>
-            </Alert>
-
+        <Alert severity="info" sx={{ mt: 2 }}>
+          <AlertTitle>🎉 Join Nowcast</AlertTitle>
+          <strong>Login/Create your account to start posting!</strong>
+        </Alert>
       </>
     )
   }
 
   return (
     <>
-      <Card sx={{ mt: 2 }}>
+      <Paper sx={{ mt: 2 }} elevation={3}> 
         <CardContent>
           <Typography variant='h6' style={{ marginBottom: "10px" }}>Add Post</Typography>
-          <form autoComplete="off" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} id='form'>
             {
               postData?.selectedFile && (
                 <>
-                  <img src={postData?.selectedFile} alt="post cover" style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '10px', borderRadius: '10px' }}></img>
+                  <img id='formimg' src={postData?.selectedFile} alt="post cover" style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '10px', borderRadius: '10px' }}></img>
                 </>
               )
             }
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
-            <TextField name='title' label="Title" variant="outlined" fullWidth value={postData.title} style={{ marginBottom: '9px', marginTop: '10px' }} onChange={(e) => setPostData({ ...postData, title: e.target.value })} required />
-            <TextField name='message' label="Message" variant="outlined" fullWidth value={postData.message} style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={(e) => setPostData({ ...postData, message: e.target.value })} required />
-            <TextField name='tags' label="Tags (comma separated)" variant="outlined" fullWidth value={postData.tags} style={{ marginBottom: '9px' }} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} required />
+            <TextField name='title' placeholder='Title*' variant="outlined" fullWidth style={{ marginBottom: '9px', marginTop: '10px' }} onChange={handleOnChange} required/>
+            <TextField name='message' placeholder='Message*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required/>
+            <TextField name='tags' placeholder='Tags (comma separated)*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} onChange={handleOnChange} required/>
             <Button variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Post</Button>
+            <Button variant="contained" onClick={resetForm} type="reset" value="Reset" color="primary" fullWidth style={{ marginTop: "15px" }}>Reset</Button>
           </form>
         </CardContent>
-      </Card>
+      </Paper>
       <Toaster
         position="bottom-right"
         reverseOrder={false}

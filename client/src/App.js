@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '@mui/material';
 import './App.css'
 import Navbar from './components/Navbar/Navbar';
+import { green, purple } from '@mui/material/colors';
 import {
     BrowserRouter,
     Routes,
@@ -19,24 +20,38 @@ import UserProfile from './components/Profile/UserProfile';
 
 
 const App = () => {
-    const [colscheme, setcolscheme] = React.useState("light");
+
+    function osTheme() {
+        let primarytheme = "";
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            primarytheme = "dark";
+        }
+        else {
+            primarytheme = "light"
+        }
+        return primarytheme;
+    }
+
+    const [colscheme, setcolscheme] = React.useState(osTheme());
+
     const prefersDarkMode = useMediaQuery(`(prefers-color-scheme: ${colscheme})`);
-    const theme = React.useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode: prefersDarkMode ? 'dark' : 'light',
-                },
-            }),
+    const theme = React.useMemo(() => createTheme({
+        palette: {
+            mode: prefersDarkMode ? 'dark' : 'light',
+            primary: {
+                main: "#FD5D5D",
+            },
+        },
+    }),
         [prefersDarkMode],
     );
-    
+
     return (
         <>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Navbar colscheme={colscheme} setcolscheme={setcolscheme}/>
+                    <Navbar colscheme={colscheme} setcolscheme={setcolscheme} />
                     <Container maxWidth="lg">
                         <Routes>
                             <Route path="/" element={<Home />} />
