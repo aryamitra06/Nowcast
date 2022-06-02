@@ -31,7 +31,7 @@ function PostRecommendation({ post }) {
             loader && <LinearProgress sx={{ mt: 2 }} />
           }
           {
-            recommendedPosts?.length === 0 && <><Typography variant='body1' color='GrayText'>No recommended posts found</Typography></>
+            recommendedPosts?.length === 0 && <><Typography variant='body1' color='GrayText' mt={2}>No recommended posts found</Typography></>
           }
           <Grid container display="flex" alignItems="center" justifyContent='flex-start' spacing={2} sx={{ mt: 0, mb: 2 }}>
             {
