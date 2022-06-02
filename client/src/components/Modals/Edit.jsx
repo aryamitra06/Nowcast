@@ -33,7 +33,6 @@ function Edit(props) {
 
     const removeCoverPhoto = () => {
         setPostData({ ...postData, selectedFile: '' })
-
     }
 
     return (

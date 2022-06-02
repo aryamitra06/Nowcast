@@ -24,34 +24,54 @@ function PostDetails() {
   const data = post.data;
 
   return (
-        !data?.title?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
-          <>
-            <Grow in>
-              <Paper elevation={3} sx={{ width: '100%', mt: 2}}>
-                <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2 }}>
-                  <Grid item xs={12} md={12} sm={12} xl={6} display='flex' justifyContent='center' alignItems='center'>
-                    <img src={data.selectedFile} alt="selected file" height="100%" width="100%" style={{ borderRadius: '13px' }} />
+    !data?.title?.length ? <LinearProgress sx={{ mt: 2 }} /> : (
+      <>
+        <Grow in>
+          <Paper elevation={3} sx={{ width: '100%', mt: 2 }}>
+            <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2 }}>
+              {
+                (data.selectedFile !== "") &&
+                <Grid item xs={12} md={12} sm={12} xl={6} display='flex' justifyContent='center' alignItems='center'>
+                  <img src={data.selectedFile} alt="selected file" height="100%" width="100%" style={{ borderRadius: '13px' }} />
+                </Grid>
+              }
+              {
+                (data.selectedFile === "") ? (
+                  <Grid item xs={12} md={12} sm={12} xl={12}>
+                    <Typography variant='h6' sx={{ mb: 1 }}>{data?.title}</Typography>
+                    <div>
+                      {data.tags?.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
+                    </div>
+                    <Divider sx={{ mt: 2, mb: 2 }} />
+                    <Typography variant='subtitle1'>Created by: <Link style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }} to={`/profile/${data?.creator}`}>{data?.name}</Link></Typography>
+                    <Typography variant='subtitle2' color='GrayText'>Posted: {moment(data.createdAt).fromNow()}</Typography>
+                    <Typography variant='subtitle2' color='GrayText'>{moment(data.createdAt).format('MMMM Do YYYY, hh:mm a')}</Typography>
+                    <Divider sx={{ mt: 2, mb: 2 }} />
+                    <Typography variant='subtitle2' >{data?.message}</Typography>
                   </Grid>
+                ) : (
                   <Grid item xs={12} md={12} sm={12} xl={5}>
                     <Typography variant='h6' sx={{ mb: 1 }}>{data?.title}</Typography>
                     <div>
                       {data.tags?.map((tag) => <Chip label={tag} style={{ marginRight: '5px' }} />)}
                     </div>
                     <Divider sx={{ mt: 2, mb: 2 }} />
-                    <Typography variant='subtitle1'>Created by: <Link style={{textDecoration: 'none', color: 'inherit', fontWeight: 'bold'}} to={`/profile/${data?.creator}`}>{data?.name}</Link></Typography>
+                    <Typography variant='subtitle1'>Created by: <Link style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }} to={`/profile/${data?.creator}`}>{data?.name}</Link></Typography>
                     <Typography variant='subtitle2' color='GrayText'>Posted: {moment(data.createdAt).fromNow()}</Typography>
                     <Typography variant='subtitle2' color='GrayText'>{moment(data.createdAt).format('MMMM Do YYYY, hh:mm a')}</Typography>
                     <Divider sx={{ mt: 2, mb: 2 }} />
                     <Typography variant='subtitle2' >{data?.message}</Typography>
                   </Grid>
-                </Grid>
-              </Paper>
-            </Grow>
-            <Likepost post={data}/>
-            <CommentSection post={data} />
-            <PostRecommendation post={data} />
-          </>
-        )
+                )
+              }
+            </Grid>
+          </Paper>
+        </Grow>
+        <Likepost post={data} />
+        <CommentSection post={data} />
+        <PostRecommendation post={data} />
+      </>
+    )
   )
 }
 

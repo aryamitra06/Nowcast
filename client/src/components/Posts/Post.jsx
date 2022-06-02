@@ -57,22 +57,22 @@ function Post({ post }) {
   };
 
   const likePostHandler = async () => {
-    await dispatch(likePost(post._id));
+    await dispatch(likePost(post?._id));
     if (hasLikedPost) {
-      setLikes(post.likes.filter((id) => id !== userId));
+      setLikes(post?.likes?.filter((id) => id !== userId));
     } else {
-      setLikes([...post.likes, userId]);
+      setLikes([...post?.likes, userId]);
     }
     dispatch(updateState(prev => !prev))
   }
 
   const Likes = () => {
-    if (likes.length > 0) {
-      return likes.find((like) => like === userId)
+    if (likes?.length > 0) {
+      return likes?.find((like) => like === userId)
         ? (
-          <><ThumbUpIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
+          <><ThumbUpIcon fontSize="small" />&nbsp;{likes?.length > 2 ? `You and ${likes?.length - 1} others` : `${likes?.length} like${likes?.length > 1 ? 's' : ''}`}</>
         ) : (
-          <><ThumbUpOffAltIcon fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
+          <><ThumbUpOffAltIcon fontSize="small" />&nbsp;{likes?.length} {likes?.length === 1 ? 'Like' : 'Likes'}</>
         );
     }
 

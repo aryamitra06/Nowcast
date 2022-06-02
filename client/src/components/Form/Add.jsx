@@ -21,15 +21,19 @@ function Form() {
     });
     await dispatch(updateState(prev => !prev))
     document.getElementById("form").reset();
-    setPostData({selectedFile: ''});
+    setPostData({ selectedFile: '' });
   }
 
   const resetForm = () => {
-    setPostData({selectedFile: ''});
+    setPostData({ selectedFile: '' });
+  }
+
+  const removeCoverPhoto = () => {
+    setPostData({ ...postData, selectedFile: '' })
   }
 
   const handleOnChange = (e) => {
-    setPostData({...postData,[e.target.name]:e.target.value});
+    setPostData({ ...postData, [e.target.name]: e.target.value });
   }
 
   if (!user?.result?.name) {
@@ -45,21 +49,22 @@ function Form() {
 
   return (
     <>
-      <Paper sx={{ mt: 2 }} elevation={3}> 
+      <Paper sx={{ mt: 2 }} elevation={3}>
         <CardContent>
           <Typography variant='h6' style={{ marginBottom: "10px" }}>Add Post</Typography>
           <form onSubmit={handleSubmit} id='form'>
             {
               postData?.selectedFile && (
                 <>
-                  <img id='formimg' src={postData?.selectedFile} alt="post cover" style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '10px', borderRadius: '10px' }}></img>
+                  <img id='formimg' src={postData?.selectedFile} alt="post cover" style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '10px', borderRadius: '10px' }}/>
+                  <Button onClick={removeCoverPhoto}>Remove</Button>
                 </>
               )
             }
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
-            <TextField name='title' placeholder='Title*' variant="outlined" fullWidth style={{ marginBottom: '9px', marginTop: '10px' }} onChange={handleOnChange} required/>
-            <TextField name='message' placeholder='Message*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required/>
-            <TextField name='tags' placeholder='Tags (comma separated)*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} onChange={handleOnChange} required/>
+            <TextField name='title' placeholder='Title*' variant="outlined" fullWidth style={{ marginBottom: '9px', marginTop: '10px' }} onChange={handleOnChange} required />
+            <TextField name='message' placeholder='Message*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required />
+            <TextField name='tags' placeholder='Tags (comma separated)*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} onChange={handleOnChange} required />
             <Button variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Post</Button>
             <Button variant="contained" onClick={resetForm} type="reset" value="Reset" color="primary" fullWidth style={{ marginTop: "15px" }}>Reset</Button>
           </form>
