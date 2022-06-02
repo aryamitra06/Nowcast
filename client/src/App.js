@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from '@mui/material';
 import './App.css'
 import Navbar from './components/Navbar/Navbar';
-import { green, purple } from '@mui/material/colors';
 import {
     BrowserRouter,
     Routes,
@@ -16,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MyProfile from './components/Profile/MyProfile';
 import UserProfile from './components/Profile/UserProfile';
+import Error from './components/404ErrorPage/Error';
 
 
 
@@ -60,6 +60,7 @@ const App = () => {
                             <Route path="/search" element={<Home />} />
                             <Route path="/myprofile" element={<MyProfile />} />
                             <Route path="/profile/:userId" element={<UserProfile />} />
+                            <Route path='/*' element={<Error />} />
                         </Routes>
                     </Container>
                 </ThemeProvider>

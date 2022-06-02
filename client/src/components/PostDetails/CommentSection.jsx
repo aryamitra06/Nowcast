@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Grow, TextField, Typography } from '@mui/material';
+import { Button, Grid, Grow, TextField, Typography, LinearProgress } from '@mui/material';
 import Comment from './Comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../actions/comment';
@@ -11,6 +11,7 @@ function CommentSection({ post }) {
 
   const user = JSON.parse(localStorage.getItem('profile'));
   const [comment, setCommment] = React.useState('');
+  const [loader, setLoader] = React.useState(true);
 
 
   const handleSubmit = async (e) => {
@@ -28,6 +29,11 @@ function CommentSection({ post }) {
     dispatch(fetchComments(post._id));
   }, [state, dispatch, post._id])
 
+  React.useEffect(() => {
+    if (comments?.status === 200) {
+      setLoader(false);
+    }
+  }, [comments])
 
   return (
     <>
@@ -35,7 +41,7 @@ function CommentSection({ post }) {
         <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 3 }} >
           <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start', mb: 2 }}>
             {
-              (user?.result?.name) && (
+              (user) && (
                 <>
                   <Typography variant='h6' sx={{ mb: 2 }}>Write a Comment</Typography>
                   <form onSubmit={handleSubmit}>
@@ -50,6 +56,12 @@ function CommentSection({ post }) {
           </Grid>
           <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start' }}>
             <Typography variant='h6' sx={{ mb: 2 }}>Comments ({data?.length})</Typography>
+              {
+                loader && <LinearProgress sx={{ mt: 2 }} />
+              }
+              {
+                data?.length === 0 && <><Typography variant='body1' color='GrayText'>No comment found, Be the first one to comment!</Typography></>
+              }
             <div style={{ overflowX: 'scroll', padding: '5px', display: 'flex' }}>
               {
                 data?.map((d) => (

@@ -18,8 +18,8 @@ app.use('/', postsRoutes);
 app.use('/', userRoutes);
 app.use('/', commentRoutes);
 
-// const REMOTE_DB_URI = 'mongodb+srv://arya123:arya123@nowcast.vnepaoc.mongodb.net/nowcast?retryWrites=true&w=majority';
-const REMOTE_DB_URI = 'mongodb://localhost:27017/nowcast'
+const REMOTE_DB_URI = 'mongodb+srv://arya123:arya123@nowcast.rgyoqt7.mongodb.net/?retryWrites=true&w=majority';
+// const REMOTE_DB_URI = 'mongodb://localhost:27017/nowcast'
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(REMOTE_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{

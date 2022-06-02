@@ -6,6 +6,8 @@ import { Link, useParams } from 'react-router-dom'
 import moment from 'moment';
 
 function UserProfile() {
+    const [loader, setLoader] = React.useState(true);
+    
     const dispatch = useDispatch();
     const { userId } = useParams();
 
@@ -24,13 +26,18 @@ function UserProfile() {
         totallikes = (data?.[i].likes.length) + totallikes;
     }
 
-    const imageUrl = data?.[0]?.imageUrl;
+    React.useEffect(() => {
+        if (posts?.status === 200) {
+            setLoader(false);
+        }
+    }, [posts])
+
     return (
         <>
             <Grid container style={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                 <Grid item xs={12} sm={6} md={6} lg={6} mt={3}>
                     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                        <Avatar src={imageUrl} sx={{ height: '150px', width: '150px' }}>{name?.charAt(0).toUpperCase()}</Avatar>
+                        <Avatar sx={{ height: '150px', width: '150px' }}></Avatar>
                         <Typography variant='h6' mt={1} mb={1}>{name}</Typography>
                         <Alert severity="info">
                             <Typography variant='body1'>Last Post: {moment(lastpost).format('MMMM Do YYYY, hh:mm a')}</Typography>
@@ -42,9 +49,15 @@ function UserProfile() {
                 <Typography variant='h6' mb={1} mt={2} textAlign='center'>All Posts</Typography>
             </Grid>
             {
-                !data?.length ? <LinearProgress /> : (
+                <Grid container style={{ mt: 2 }} spacing={2}>
 
-                    <Grid container style={{ mt: 2 }} spacing={2}>
+                    {
+                        loader && <LinearProgress sx={{ mt: 2 }} />
+                    }
+                    {
+                        data?.length === 0 && <><Typography variant='h6' mt={2}>No post found</Typography></>
+                    }
+
                         {
                             data?.map((post) => (
                                 <Grid key={data._id} item xs={12} sm={6} md={4} lg={4}>
@@ -60,9 +73,8 @@ function UserProfile() {
                                     </Link>
                                 </Grid>
                             ))
-                        }
-                    </Grid>
-                )
+                    }
+                </Grid>
             }
         </>
     )
