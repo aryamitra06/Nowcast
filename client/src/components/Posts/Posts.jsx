@@ -29,7 +29,7 @@ function Posts() {
     if (search) {
       dispatch(searchPost(search))
     }
-  }, [dispatch, state])
+  }, [dispatch, state, search])
 
 
   const posts = useSelector((state) => state.posts);
@@ -53,7 +53,7 @@ function Posts() {
       <Grid container alignItems="stretch" spacing={2} sx={{ mt: 0, mb: 2 }}>
         {
           data?.map((d) => (
-            <Grid item xs={12} sm={12}>
+            <Grid key={d._id} item xs={12} sm={12}>
               <Post post={d} />
             </Grid>
           ))

@@ -38,7 +38,7 @@ function CommentSection({ post }) {
   return (
     <>
       <Grow in>
-        <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 3 }} >
+        <Grid container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 0 }} >
           <Grid item xs={12} md={12} sm={12} xl={12} sx={{ alignSelf: 'flex-start', mb: 2 }}>
             {
               (user) && (
@@ -65,7 +65,7 @@ function CommentSection({ post }) {
             <div style={{ overflowX: 'scroll', padding: '5px', display: 'flex' }}>
               {
                 data?.map((d) => (
-                  <Comment comment={d} />
+                  <Comment key={d} comment={d} />
                 ))
               }
             </div>

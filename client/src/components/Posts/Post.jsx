@@ -23,9 +23,6 @@ function Post({ post }) {
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
   const [openEditModal, setOpenEditModal] = React.useState(false);
 
-  const [likes, setLikes] = React.useState(post?.likes);
-  const hasLikedPost = post.likes.find((like) => like === userId);
-
   //delete modal
   const handleClickOpenDeleteModal = () => {
     setOpenDeleteModal(true);
@@ -56,28 +53,16 @@ function Post({ post }) {
     setAnchorEl(null);
   };
 
+
   const likePostHandler = async () => {
-    await dispatch(likePost(post?._id));
-    if (hasLikedPost) {
-      setLikes(post?.likes?.filter((id) => id !== userId));
-    } else {
-      setLikes([...post?.likes, userId]);
+    if(userId){
+      await dispatch(likePost(post?._id));
+      await dispatch(updateState(prev => !prev))
     }
-    dispatch(updateState(prev => !prev))
+    else{
+      navigation('/auth')
+    }
   }
-
-  const Likes = () => {
-    if (likes?.length > 0) {
-      return likes?.find((like) => like === userId)
-        ? (
-          <><ThumbUpIcon fontSize="small" />&nbsp;{likes?.length > 2 ? `You and ${likes?.length - 1} others` : `${likes?.length} like${likes?.length > 1 ? 's' : ''}`}</>
-        ) : (
-          <><ThumbUpOffAltIcon fontSize="small" />&nbsp;{likes?.length} {likes?.length === 1 ? 'Like' : 'Likes'}</>
-        );
-    }
-
-    return <><ThumbUpOffAltIcon fontSize="small" />&nbsp;Like</>;
-  };
 
   const openPost = () => {
     navigation(`/post/${post._id}`)
@@ -129,9 +114,16 @@ function Post({ post }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" disabled={!user?.result} onClick={likePostHandler}>
-            <Likes />
-          </Button>
+          <IconButton onClick={likePostHandler}>
+            {
+              post?.likes?.includes(userId) ? (
+                <ThumbUpIcon />
+              ) : (
+                <ThumbUpOffAltIcon />
+              )
+            }
+          </IconButton>
+          <Typography>{post?.likes.length}</Typography>
         </CardActions>
       </Card>
       <Delete openDeleteModal={openDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} postid={post?._id} />
