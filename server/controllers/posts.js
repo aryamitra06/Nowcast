@@ -1,5 +1,6 @@
 import Post from '../models/Post.js'
-
+import('@tensorflow/tfjs');
+import toxicity from '@tensorflow-models/toxicity';
 //fetching all posts
 export const getPosts = async (req, res) => {
     try {
@@ -13,13 +14,25 @@ export const getPosts = async (req, res) => {
 
 //adding a new post
 export const createPost = async (req, res) => {
-    const post = req.body;
-    const newPost = new Post({ ...post, creator: req.userId });
+    const body = req.body;
     try {
-        await newPost.save();
-        res.status(201).json(newPost)
+        const post = await new Post({ ...body, creator: req.userId });
+        const threshold = 0.9;
+        toxicity.load(threshold).then(model => {
+            const sentences = [req.body.title + req.body.message];
+            model.classify(sentences).then(predictions => {
+                let result = predictions[1].results;
+                if (JSON.stringify(result).includes("false") === false) {
+                    res.status(500).json({ "error": "toxic post detected! You cannot post it to the community!" });
+                }
+                else if (JSON.stringify(result).includes("false") === true) {
+                    post.save();
+                    res.status(200).json({ "msg": "Success" });
+                }
+            })
+        })
     } catch (error) {
-        res.status(409).json({ msg: error.message })
+        res.status(500).json(error);
     }
 }
 
@@ -118,9 +131,9 @@ export const searchPost = async (req, res) => {
 //profile posts
 export const ProfilePosts = async (req, res) => {
     try {
-        const  posts  = await Post.find({ creator: req.params.userId})
+        const posts = await Post.find({ creator: req.params.userId })
         res.status(200).json(posts);
-        
+
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
