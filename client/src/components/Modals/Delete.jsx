@@ -1,14 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {useDispatch} from 'react-redux';
 import { deletePost } from '../../actions/post';
 import {updateState} from '../../actions/updatestate'; 
 function Delete(props) {
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     const handleDelete = async () => {
+        await setLoading(true);
         await dispatch(deletePost(props.postid))
-        dispatch(updateState(prev => !prev))
+        await setLoading(false);
+        await props.setOpenDeleteModal(false);
+        await dispatch(updateState(prev => !prev))
     }
     
     return (
@@ -29,9 +34,9 @@ function Delete(props) {
                     <Button onClick={props.handleCloseDeleteModal} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={ ()=> {props.handleCloseDeleteModal(); handleDelete();}} color='error'>
+                    <LoadingButton loading={loading} loadingIndicator="Deleting..." onClick={handleDelete} color='error'>
                         Delete
-                    </Button>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>
         </>

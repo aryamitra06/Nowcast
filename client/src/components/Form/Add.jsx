@@ -21,8 +21,8 @@ function Form() {
     await dispatch(createPost({ ...postData, name: user?.result?.name }))
     await setLoading(false);
     await dispatch(updateState(prev => !prev))
-    document.getElementById("form").reset();
-    setPostData({ selectedFile: '' });
+    await document.getElementById("form").reset();
+    await setPostData({ selectedFile: '' });
   }
 
   const resetForm = () => {

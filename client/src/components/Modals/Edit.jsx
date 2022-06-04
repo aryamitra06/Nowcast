@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Dialog, DialogTitle, DialogContent, Button, TextField, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useEffect, useState } from 'react'
+import { Dialog, DialogTitle, DialogContent, Button, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import FileBase from 'react-file-base64';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -9,11 +9,12 @@ import { updateState } from '../../actions/updatestate';
 
 function Edit(props) {
     const dispatch = useDispatch();
-    const ref = useRef();
 
     const post = useSelector((state) => state.post);
     const data = post.data;
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
+    const [loading, setLoading] = useState(false);
+
     const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
@@ -23,7 +24,10 @@ function Edit(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        await setLoading(true);
         await dispatch(updatePost(props.postid, { ...postData, name: user?.result?.name }))
+        await setLoading(false);
+        await props.setOpenEditModal(false);
         await dispatch(updateState(prev => !prev))
     }
 
@@ -56,7 +60,7 @@ function Edit(props) {
                         <TextField name='title' label="Title" variant="outlined" fullWidth value={postData?.title} style={{ marginBottom: '9px', marginTop: '19px' }} onChange={(e) => onValueChange(e)} required focused />
                         <TextField name='message' label="Message" variant="outlined" fullWidth value={postData?.message} multiline={true} rows={3} style={{ marginBottom: '9px' }} onChange={(e) => onValueChange(e)} required focused />
                         <TextField name='tags' label="Tags (comma separated)" variant="outlined" fullWidth value={postData?.tags} style={{ marginBottom: '9px' }} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} required focused />
-                        <Button variant="contained" type="submit" onClick={props.handleCloseEditModal} color="primary" fullWidth style={{ marginTop: "15px" }}>Save</Button>
+                        <LoadingButton loading={loading} loadingIndicator="Checking Toxicity..." variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Save</LoadingButton>
                         <Button variant="contained" onClick={props.handleCloseEditModal} color="primary" fullWidth style={{ marginTop: "15px" }}>Close</Button>
                     </form>
                 </DialogContent>

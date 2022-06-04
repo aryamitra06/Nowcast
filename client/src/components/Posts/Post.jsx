@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, CardActionArea, CardHeader, IconButton, Chip, Menu, MenuItem } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Typography, CardActionArea, CardHeader, IconButton, Chip, Menu, MenuItem } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -126,8 +126,8 @@ function Post({ post }) {
           <Typography>{post?.likes.length}</Typography>
         </CardActions>
       </Card>
-      <Delete openDeleteModal={openDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} postid={post?._id} />
-      <Edit openEditModal={openEditModal} handleCloseEditModal={handleCloseEditModal} postid={post?._id} />
+      <Delete openDeleteModal={openDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} postid={post?._id} setOpenDeleteModal={setOpenDeleteModal}/>
+      <Edit openEditModal={openEditModal} handleCloseEditModal={handleCloseEditModal} postid={post?._id} setOpenEditModal={setOpenEditModal}/>
     </>
   )
 }

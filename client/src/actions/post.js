@@ -24,8 +24,10 @@ export const getPostById = (id) => async (dispatch) => {
 export const updatePost = (id, post) => async (dispatch) => {
   try {
     await api.updatePost(id, post);
+    toast.success('Edited successfully', {icon: '🤗'});
     dispatch({ type: 'UPDATE', payload: 0 });
   } catch (error) {
+    toast.error('Oops! Something went wrong', {icon: '😣'});
     console.log(error.message);
   }
 }
@@ -33,8 +35,10 @@ export const updatePost = (id, post) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
+    toast.success('Deleted successfully', {icon: '🤐'});
     dispatch({ type: 'DELETE', payload: 0 })
   } catch (error) {
+    toast.error('Oops! Something went wrong', {icon: '😣'});
     console.log(error.message);
   }
 }

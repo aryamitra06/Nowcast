@@ -48,19 +48,36 @@ export const getPostById = async (req, res) => {
 
 //updating a post
 export const updatePost = async (req, res) => {
-    const { id } = req.params;
-    const { title, message, creator, selectedFile, tags } = req.body;
     try {
-        if (creator === req.userId) {
-            const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-            await Post.findByIdAndUpdate(id, updatedPost, { new: true });
-            res.json(updatedPost);
+        if (req.body.creator === req.userId) {
+            const threshold = 0.9;
+            const editPost = new Post(req.body);
+
+            //@desc
+            //function for editing a post
+            const editingPost = async () => {
+                await Post.updateOne({ _id: req.params.id }, editPost);
+                res.status(200).json({ "msg": "success" });
+            }
+
+            toxicity.load(threshold).then(model => {
+                const sentences = [editPost.title + editPost.message];
+                model.classify(sentences).then(predictions => {
+                    let result = predictions[1].results;
+                    if (JSON.stringify(result).includes("false") === false) {
+                        res.status(500).json({ "error": "toxic post detected! You cannot post it to the community!" });
+                    }
+                    else if (JSON.stringify(result).includes("false") === true) {
+                        editingPost();
+                    }
+                })
+            })
         }
         else {
-            res.status(405).json({ msg: 'not allowed' })
+            res.status(401).send("Not allowed");
         }
     } catch (error) {
-        res.status(404).json({ msg: error.message })
+        res.status(401).send("Not allowed");
     }
 }
 
