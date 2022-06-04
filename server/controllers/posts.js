@@ -104,12 +104,16 @@ export const likePost = async (req, res) => {
 
 //getting recommended posts
 export const recommendPosts = async (req, res) => {
-    const { searchQuery, tags } = req.query;
     try {
-        const title = new RegExp(searchQuery, "i");
-        const posts = await Post.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
+        const data = await Post.findById(req.params.postId);
+        const message = data.message;
+        const title = data.title;
+        const tags = data.tags.toString();
+        const q1 = new RegExp(title, "i");
+        const q2 = new RegExp(tags, "i");
+        const q3 = new RegExp(message, "i");
+        const posts = await Post.find({ $or: [{ title: q1 }, { tags: q2 }, { message: q3 }] });
         res.json(posts);
-
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

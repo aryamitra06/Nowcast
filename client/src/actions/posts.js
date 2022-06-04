@@ -10,9 +10,9 @@ export const fetchPosts = () => async (dispatch) => {
   }
 };
 
-export const recommendPosts = (searchQuery) => async (dispatch) => {
+export const recommendPosts = (search) => async (dispatch) => {
   try {
-    const data = await api.recommendPosts(searchQuery);
+    const data = await api.recommendPosts(search);
     dispatch({ type: 'RECOMMEND_POSTS', payload: data });
   } catch (error) {
     console.log(error);

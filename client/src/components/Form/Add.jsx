@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Card, CardContent, Alert, AlertTitle, Paper } from '@mui/material';
+import { TextField, Typography, Card, CardContent, Alert, AlertTitle, Button } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/post';
 import { updateState } from '../../actions/updatestate'
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 function Form() {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
+  const [loading, setLoading] = useState(false);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await setLoading(true);
     await dispatch(createPost({ ...postData, name: user?.result?.name }))
-    toast.success('Yay! Your story posted', {
-      icon: '🎉',
-    });
+    await setLoading(false);
     await dispatch(updateState(prev => !prev))
     document.getElementById("form").reset();
     setPostData({ selectedFile: '' });
@@ -49,7 +50,7 @@ function Form() {
 
   return (
     <>
-      <Paper sx={{ mt: 2 }} elevation={3}>
+      <Card sx={{ mt: 2 }}>
         <CardContent>
           <Typography variant='h6' style={{ marginBottom: "10px" }}>Add Post</Typography>
           <form onSubmit={handleSubmit} id='form'>
@@ -65,21 +66,16 @@ function Form() {
             <TextField name='title' placeholder='Title*' variant="outlined" fullWidth style={{ marginBottom: '9px', marginTop: '10px' }} onChange={handleOnChange} required />
             <TextField name='message' placeholder='Message*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required />
             <TextField name='tags' placeholder='Tags (comma separated)*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} onChange={handleOnChange} required />
-            <Button variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Post</Button>
+            <LoadingButton loading={loading} loadingIndicator="Checking Toxicity..." variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Post</LoadingButton>
             <Button variant="contained" onClick={resetForm} type="reset" value="Reset" color="primary" fullWidth style={{ marginTop: "15px" }}>Reset</Button>
           </form>
         </CardContent>
-      </Paper>
+      </Card>
       <Toaster
-        position="bottom-right"
+        position="bottom-center"
         reverseOrder={false}
         toastOptions={{
-          duration: 5000,
-          style: {
-            background: 'white',
-            color: 'green',
-            fontFamily: 'sans-serif'
-          }
+          duration: 5000
         }}
       />
     </>

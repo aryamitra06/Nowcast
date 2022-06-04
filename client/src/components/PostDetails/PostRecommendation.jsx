@@ -2,28 +2,32 @@ import { Typography, LinearProgress, Grid, Paper, Divider } from '@mui/material'
 import React from 'react'
 import { recommendPosts } from '../../actions/posts'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 function PostRecommendation({ post }) {
   const [loader, setLoader] = React.useState(true);
   const dispatch = useDispatch();
 
+  const {id} = useParams();
+
   
   const posts = useSelector((state) => state.posts);
-  const data = posts.data;
+  const data = posts?.data;
+  const recommendedPosts = data?.filter(({ _id }) => _id !== post?._id);
   
   
   React.useEffect(() => {
-    dispatch(recommendPosts({ search: 'none', tags: post?.tags?.join(',') }));
+    if (post?.title) {
+      dispatch(recommendPosts(id));
+    }
     if (posts?.status === 200) {
       setLoader(false);
     }
-  }, [dispatch, post._id])
+  }, [dispatch, id, posts?.status ])
 
-  
-  const recommendedPosts = data?.filter(({ _id }) => _id !== post._id);
+
   return (
     <>
-      <Typography variant='h6' mt={2} >Recommended Posts</Typography>
+      <Typography variant='h6' mt={2} >Recommended For You</Typography>
       {
         <>
           {
@@ -37,8 +41,12 @@ function PostRecommendation({ post }) {
               recommendedPosts?.map((post) => (
                 <Grid key={post?._id} item xs={12} md={4} sm={4} xl={4}>
                   <Link style={{ textDecoration: 'none' }} to={`/post/${post?._id}`}>
-                    <Paper sx={{ height: '300px' }}>
-                      <img src={post?.selectedFile} height="50%" width="100%" style={{ objectFit: 'cover', borderRadius: "5px 5px 0 0" }}></img>
+                    <Paper>
+                      {
+                        post?.selectedFile && (
+                          <img src={post?.selectedFile} height="50%" width="100%" style={{ objectFit: 'cover', borderRadius: "5px 5px 0 0" }}></img>
+                        )
+                      }
                       <div style={{ padding: "10px 12px" }}>
                         <Typography variant='body1'>{post?.title.toString().slice(0, 30)}...</Typography>
                         <Divider sx={{ mb: 1, mt: 1 }} />

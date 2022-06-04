@@ -11,7 +11,7 @@ router.patch('/update/:id', auth, updatePost)
 router.delete('/delete/:id', auth, deletePost)
 router.patch('/like/:id', auth, likePost)
 router.get('/post/:id', getPostById)
-router.get('/recommend', recommendPosts);
+router.get('/recommend/:postId', recommendPosts);
 router.get('/search', searchPost);
 router.get('/profile/:userId', ProfilePosts)
 
