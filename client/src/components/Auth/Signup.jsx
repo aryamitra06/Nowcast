@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import { Card, CardContent, Typography, Button, TextField, Avatar } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Avatar, Button } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../actions/jwtauth';
 function Signup() {
     const dispatch = useDispatch();
     const [authData, setAuthData] = useState({ firstName: '', lastName: '', email: '', password: '' });
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(authData);
+        await setLoading(true);
         await dispatch(signUp(authData));
+        await setLoading(false);
     }
     const handleOnChange = (e) => {
         setAuthData({ ...authData, [e.target.name]: e.target.value });
@@ -41,7 +44,7 @@ function Signup() {
                         <TextField name="lastName" label="Last Name" type='text' variant="outlined" fullWidth size="small" sx={{ mb: 2 }} onChange={handleOnChange} required />
                         <TextField name="email" label="Email" type='email' variant="outlined" fullWidth size="small" sx={{ mb: 2 }} onChange={handleOnChange} required />
                         <TextField name="password" label="Password" type='password' variant="outlined" fullWidth size="small" sx={{ mb: 2 }} onChange={handleOnChange} required />
-                        <Button size="small" variant='contained' fullWidth type='submit'>Sign up</Button>
+                        <LoadingButton loading={loading} size="small" variant='contained' fullWidth type='submit'>Sign up</LoadingButton>
                     </form>
                 </CardContent>
             </Card>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Grow, Grid, Button } from '@mui/material';
 import { GoogleLogin } from 'react-google-login'
 import GoogleIcon from '@mui/icons-material/Google';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { saveAuth } from '../../actions/googleauth';
 import Signup from './Signup';
