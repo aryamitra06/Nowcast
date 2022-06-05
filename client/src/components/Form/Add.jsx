@@ -36,7 +36,7 @@ function Form() {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   }
 
-  const msg = "What's on your mind?"
+  const msg = "What's on your mind?*"
 
   if (!user?.result?.name) {
     return (
