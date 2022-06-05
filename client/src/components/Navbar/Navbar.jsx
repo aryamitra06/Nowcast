@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate,Link } from 'react-router-dom'
 import { updateState } from '../../actions/updatestate';
 import decode from 'jwt-decode';
+import toast from 'react-hot-toast';
 
 function Navbar(props) {
 
@@ -43,7 +44,10 @@ function Navbar(props) {
     const decodedToken = decode(token);
     if (decodedToken.exp * 1000 < new Date().getTime()) {
       logout();
-      window.location.href = "/";
+      toast.error('Session Expired', { icon: '⚠️' });
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 5000);
     }
   }
 
