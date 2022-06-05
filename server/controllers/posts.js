@@ -1,6 +1,7 @@
 import Post from '../models/Post.js'
 import '@tensorflow/tfjs';
 import toxicity from '@tensorflow-models/toxicity';
+
 //fetching all posts
 export const getPosts = async (req, res) => {
     try {

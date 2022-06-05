@@ -17,6 +17,7 @@ import MyProfile from './components/Profile/MyProfile';
 import UserProfile from './components/Profile/UserProfile';
 import Error from './components/404ErrorPage/Error';
 
+import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
                             <Route path="/profile/:userId" element={<UserProfile />} />
                             <Route path='/*' element={<Error />} />
                         </Routes>
+                        <Toaster position="bottom-center" reverseOrder={false} toastOptions={{ duration: 5000 }} />
                     </Container>
                 </ThemeProvider>
             </BrowserRouter>

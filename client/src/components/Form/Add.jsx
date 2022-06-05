@@ -5,7 +5,6 @@ import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/post';
 import { updateState } from '../../actions/updatestate'
-import { Toaster } from 'react-hot-toast';
 
 function Form() {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -37,6 +36,8 @@ function Form() {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   }
 
+  const msg = "What's on your mind?"
+
   if (!user?.result?.name) {
     return (
       <>
@@ -64,20 +65,13 @@ function Form() {
             }
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
             <TextField name='title' placeholder='Title*' variant="outlined" fullWidth style={{ marginBottom: '9px', marginTop: '10px' }} onChange={handleOnChange} required />
-            <TextField name='message' placeholder='Message*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required />
+            <TextField name='message' placeholder={msg} variant="outlined" fullWidth style={{ marginBottom: '9px' }} multiline={true} rows={3} onChange={handleOnChange} required />
             <TextField name='tags' placeholder='Tags (comma separated)*' variant="outlined" fullWidth style={{ marginBottom: '9px' }} onChange={handleOnChange} required />
             <LoadingButton loading={loading} loadingIndicator="Checking Toxicity..." variant="contained" type="submit" color="primary" fullWidth style={{ marginTop: "15px" }}>Post</LoadingButton>
             <Button variant="contained" onClick={resetForm} type="reset" value="Reset" color="primary" fullWidth style={{ marginTop: "15px" }}>Reset</Button>
           </form>
         </CardContent>
       </Card>
-      <Toaster
-        position="bottom-center"
-        reverseOrder={false}
-        toastOptions={{
-          duration: 5000
-        }}
-      />
     </>
   )
 }

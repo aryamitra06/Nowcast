@@ -1,5 +1,6 @@
-import React from 'react'
-import { Button, Grid, Grow, TextField, Typography, LinearProgress } from '@mui/material';
+import React, {useState} from 'react'
+import { Grid, Grow, TextField, Typography, LinearProgress } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Comment from './Comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../actions/comment';
@@ -12,13 +13,15 @@ function CommentSection({ post }) {
   const user = JSON.parse(localStorage.getItem('profile'));
   const [comment, setCommment] = React.useState('');
   const [loader, setLoader] = React.useState(true);
-
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await setLoading(true);
     await dispatch(addComment({ comment: comment, postId: post._id, name: user?.result?.name }))
+    await setLoading(false);
     await dispatch(updateState(prev => !prev))
-    setCommment('');
+    await setCommment('');
   }
 
   const state = useSelector((state) => state.updatestate);
@@ -47,7 +50,7 @@ function CommentSection({ post }) {
                   <form onSubmit={handleSubmit}>
                     <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
                       <TextField value={comment} onChange={event => setCommment(event.target.value)} multiline size='small' fullWidth placeholder='What is your view?' required></TextField>
-                      <Button type='submit' variant='contained' sx={{ alignSelf: 'flex-start' }}>Comment</Button>
+                      <LoadingButton type='submit' loading={loading} variant='contained' sx={{ alignSelf: 'flex-start' }}>Comment</LoadingButton>
                     </div>
                   </form>
                 </>

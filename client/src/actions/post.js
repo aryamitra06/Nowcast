@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 export const createPost = (post) => async (dispatch) => {
   try {
     const data = await api.createPost(post);
-    toast.success('Yay! Posted successfully', {icon: '🎉'});
+    toast.success('Yay! Posted', {icon: '🎉'});
     dispatch({ type: 'CREATE', payload: data });
   } catch (error) {
     toast.error('Oops! Something went wrong', {icon: '😣'});
@@ -24,7 +24,7 @@ export const getPostById = (id) => async (dispatch) => {
 export const updatePost = (id, post) => async (dispatch) => {
   try {
     await api.updatePost(id, post);
-    toast.success('Edited successfully', {icon: '🤗'});
+    toast.success('Post Edited', {icon: '🤗'});
     dispatch({ type: 'UPDATE', payload: 0 });
   } catch (error) {
     toast.error('Oops! Something went wrong', {icon: '😣'});
@@ -35,7 +35,7 @@ export const updatePost = (id, post) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
-    toast.success('Deleted successfully', {icon: '🤐'});
+    toast.success('Post Deleted', {icon: '🤐'});
     dispatch({ type: 'DELETE', payload: 0 })
   } catch (error) {
     toast.error('Oops! Something went wrong', {icon: '😣'});
