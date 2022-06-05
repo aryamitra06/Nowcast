@@ -38,10 +38,7 @@ const App = () => {
     const prefersDarkMode = useMediaQuery(`(prefers-color-scheme: ${colscheme})`);
     const theme = React.useMemo(() => createTheme({
         palette: {
-            mode: prefersDarkMode ? 'dark' : 'light',
-            primary: {
-                main: "#FD5D5D",
-            },
+            mode: prefersDarkMode ? 'dark' : 'light'
         },
     }),
         [prefersDarkMode],

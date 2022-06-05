@@ -13,28 +13,28 @@ function Auth() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  React.useEffect(() => { 
+  React.useEffect(() => {
     if (user) {
       navigate("/")
     }
   }, [user, navigate])
-  
+
   const dispatch = useDispatch();
 
   const googleSuccess = async (res) => {
-    try {
-      toast.success('Login success')
-      const result = res?.profileObj;
-      const token = res?.tokenId;
-      dispatch(saveAuth({ result, token }))
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    await dispatch(saveAuth({ result, token }))
+
+    await toast.success('Welcome Back! Redirecting You to Feed...')
+
+    await setTimeout(() => {
       window.location.href = "/";
-    } catch (error) {
-      toast.error('Login failed')
-    }
+    }, 3000);
 
   };
   const googleFailure = async () => {
-    toast.error('Login failed')
+    await toast.error('Try Again')
   }
   return (
     <>
@@ -61,7 +61,6 @@ function Auth() {
           </Grid>
         </Container>
       </Grow>
-      <Toaster />
     </>
   )
 }
