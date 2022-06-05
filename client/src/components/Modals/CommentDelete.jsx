@@ -1,15 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../actions/comment';
 import { updateState } from '../../actions/updatestate';
 
 function CommentDelete(props) {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+
     const handleDeleteComment = async () => {
+        await setLoading(true);
         await dispatch(deleteComment(props.comment._id))
+        await setLoading(false);
         await dispatch(updateState(prev => !prev))
-        props.setOpen(false);
+        await props.setOpen(false);
       }
     return (
         <>
@@ -27,7 +32,7 @@ function CommentDelete(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={props.handleClose}>Cancel</Button>
-                    <Button onClick={handleDeleteComment} color='error'>Delete</Button>
+                    <LoadingButton loading={loading} onClick={handleDeleteComment} color='error'>Delete</LoadingButton>
                 </DialogActions>
             </Dialog>
         </>

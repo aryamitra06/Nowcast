@@ -34,7 +34,7 @@ function Delete(props) {
                     <Button onClick={props.handleCloseDeleteModal} color="primary">
                         Cancel
                     </Button>
-                    <LoadingButton loading={loading} loadingIndicator="Deleting..." onClick={handleDelete} color='error'>
+                    <LoadingButton loading={loading} onClick={handleDelete} color='error'>
                         Delete
                     </LoadingButton>
                 </DialogActions>
