@@ -20,11 +20,11 @@ app.use('/', postsRoutes);
 app.use('/', userRoutes);
 app.use('/', commentRoutes);
 
-const REMOTE_DB_URI = process.env.REMOTE_DB_URI;
+const DB_URI = process.env.DB_URI;
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(REMOTE_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
     console.log('✅ Cloud Database connected');
 })
 
