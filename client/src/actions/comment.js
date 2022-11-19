@@ -1,6 +1,5 @@
 import * as api from '../api/index.js';
 import toast from 'react-hot-toast';
-
 export const addComment = (post) => async (dispatch) => {
   try {
     const data = await api.addComment(post);
